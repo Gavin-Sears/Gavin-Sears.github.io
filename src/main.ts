@@ -1,3 +1,6 @@
 // Entry point: boots the background, then the UI.
 
-export {};
+import { startBackground } from './bg';
+
+const canvas = document.querySelector<HTMLCanvasElement>('#bg');
+if (canvas) void startBackground(canvas);

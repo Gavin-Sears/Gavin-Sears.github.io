@@ -46,6 +46,16 @@ img, svg { display: block; max-width: 100%; }
   pointer-events: none;
 }
 
+/* No WebGPU/WebGL: static gradient instead of the canvas. */
+.no-gl #bg { display: none; }
+.no-gl body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background: radial-gradient(120% 70% at 50% 0%, #1a0d2e 0%, var(--bg) 65%);
+}
+
 /* ---------- hero ---------- */
 .hero {
   min-height: 100svh;
