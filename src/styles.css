@@ -1,3 +1,15 @@
+/* ---------- fonts ---------- */
+/* Gelasio (SIL OFL 1.1, see /fonts/OFL.txt), Latin subset, wght 400–700.
+   Only downloaded where none of the earlier --font-display families are installed (mostly Android).
+   Don't start a family name with a generic keyword (e.g. "Serif ..."): the minifier unquotes it
+   and browsers then reject the whole @font-face. */
+@font-face {
+  font-family: "Gelasio Subset";
+  src: url("/fonts/serif-fallback.woff2") format("woff2");
+  font-weight: 400 700;
+  font-display: swap;
+}
+
 /* ---------- tokens ---------- */
 :root {
   --bg: #0a0512;
@@ -10,8 +22,8 @@
   --radius: 14px;
   --gutter: 16px;
 
-  /* Iowan ships with Apple OSes; Palatino family on Windows/Linux; "Serif Fallback" is a self-hosted OFL font for Android. */
-  --font-display: "Iowan Old Style", "Palatino Linotype", Palatino, "URW Palladio L", P052, "Serif Fallback", Georgia, serif;
+  /* Iowan ships with Apple OSes; Palatino family on Windows/Linux; "Gelasio Subset" (self-hosted) covers the rest. */
+  --font-display: "Iowan Old Style", "Palatino Linotype", Palatino, "URW Palladio L", P052, "Gelasio Subset", Georgia, serif;
   --font-ui: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   --font-mono: ui-monospace, "SF Mono", "Cascadia Mono", "Roboto Mono", Menlo, Consolas, monospace;
 }
@@ -21,6 +33,7 @@
 
 html {
   color-scheme: dark;
+  scroll-behavior: smooth;
   -webkit-text-size-adjust: 100%;
   text-size-adjust: 100%;
 }
@@ -35,6 +48,11 @@ body {
 }
 
 img, svg { display: block; max-width: 100%; }
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
 
 /* ---------- background canvas ---------- */
 #bg {
@@ -58,12 +76,124 @@ img, svg { display: block; max-width: 100%; }
 
 /* ---------- hero ---------- */
 .hero {
+  position: relative;
   min-height: 100svh;
   display: grid;
   place-items: center;
+  padding: var(--gutter) var(--gutter) calc(72px + env(safe-area-inset-bottom));
+  text-align: center;
+}
+
+.hero-inner {
+  position: relative;
+  isolation: isolate;
+}
+
+/* Soft dark halo so the name stays readable over bright dots, without a visible box. */
+.hero-inner::before {
+  content: "";
+  position: absolute;
+  inset: -48px -72px;
+  z-index: -1;
+  background: radial-gradient(closest-side, rgb(10 5 18 / 0.7), transparent);
+  pointer-events: none;
+}
+
+.hero-name {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(2rem, 7.5vw, 4rem);
+  line-height: 1.05;
+  letter-spacing: -0.01em;
+  text-wrap: balance;
+  text-shadow: 0 0 2px rgb(10 5 18 / 0.8), 0 0 20px rgb(10 5 18 / 0.9);
+}
+
+.hero-role {
+  margin: 12px 0 0;
+  font-family: var(--font-ui);
+  font-size: clamp(0.8rem, 2.6vw, 1rem);
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: #cfc8e0;
+  text-shadow: 0 0 12px rgb(10 5 18 / 0.9);
+}
+
+.hero-links {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 18px;
+}
+
+.hero-links a {
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  color: var(--text);
+  opacity: 0.85;
+  filter: drop-shadow(0 0 8px rgb(10 5 18 / 0.9));
+  transition: opacity 0.2s, color 0.2s, transform 0.2s;
+}
+
+.hero-links a:hover {
+  opacity: 1;
+  color: var(--accent);
+  transform: translateY(-2px);
+}
+
+.hero-links svg {
+  width: 26px;
+  height: 26px;
+}
+
+.scroll-cue {
+  position: absolute;
+  left: 50%;
+  bottom: calc(16px + env(safe-area-inset-bottom));
+  translate: -50% 0;
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: none;
+  color: var(--text);
+  opacity: 0.5;
+  cursor: pointer;
+  transition: opacity 0.3s;
+  animation: bob 2.4s ease-in-out infinite;
+}
+
+.scroll-cue:hover { opacity: 0.9; }
+
+.scroll-cue svg {
+  width: 32px;
+  height: 32px;
+}
+
+.scroll-cue.is-hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+@keyframes bob {
+  50% { transform: translateY(6px); }
 }
 
 /* ---------- panel ---------- */
 .panel {
   min-height: 100svh;
+}
+
+/* ---------- motion ---------- */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .scroll-cue { animation: none; }
 }
