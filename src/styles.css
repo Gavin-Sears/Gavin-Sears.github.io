@@ -82,6 +82,9 @@ img, svg { display: block; max-width: 100%; }
   place-items: center;
   padding: var(--gutter) var(--gutter) calc(72px + env(safe-area-inset-bottom));
   text-align: center;
+  /* The name's halo reaches past the screen edge on phones; clip it so the page can't scroll sideways.
+     `clip` (unlike `hidden`) doesn't create a scroll container. */
+  overflow: clip;
 }
 
 .hero-inner {
@@ -190,6 +193,189 @@ img, svg { display: block; max-width: 100%; }
 /* ---------- panel ---------- */
 .panel {
   min-height: 100svh;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: var(--gutter) max(var(--gutter), env(safe-area-inset-right)) calc(48px + env(safe-area-inset-bottom))
+    max(var(--gutter), env(safe-area-inset-left));
+  background: var(--panel);
+  border-top: 1px solid var(--line);
+}
+
+@media (min-width: 720px) {
+  .panel {
+    width: calc(100% - 48px);
+    padding: 24px 24px 64px;
+    border: 1px solid var(--line);
+    border-bottom: 0;
+    border-radius: 20px 20px 0 0;
+  }
+}
+
+/* ---------- list + cards ---------- */
+.list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 320px), 1fr));
+  gap: 16px;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: rgb(255 255 255 / 0.03);
+  transition: border-color 0.2s;
+}
+
+.card:hover { border-color: rgb(180 140 255 / 0.35); }
+
+.thumb {
+  display: block;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  background: #0e0918;
+  color: inherit;
+  text-decoration: none;
+}
+
+.thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+a.thumb:hover img { transform: scale(1.03); }
+
+a.thumb:focus-visible { outline-offset: -3px; }
+
+/* Shown until an entry gets a real image. */
+.thumb-placeholder {
+  display: grid;
+  place-items: center;
+  height: 100%;
+  padding: 16px;
+  background:
+    radial-gradient(120% 90% at 0% 0%, rgb(180 140 255 / 0.22), transparent 60%),
+    radial-gradient(100% 80% at 100% 100%, rgb(90 200 255 / 0.12), transparent 60%),
+    #120b20;
+  color: rgb(236 232 244 / 0.75);
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+  text-align: center;
+  text-wrap: balance;
+}
+
+.card-body {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 8px;
+  padding: 14px 16px 16px;
+}
+
+.card-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 4px 12px;
+  flex-wrap: wrap;
+}
+
+.card-title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  font-weight: 600;
+  line-height: 1.25;
+}
+
+.card-meta {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--muted);
+  white-space: nowrap;
+}
+
+.card-tag {
+  padding: 1px 6px;
+  border: 1px solid rgb(180 140 255 / 0.4);
+  border-radius: 4px;
+  color: var(--accent);
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.card-context {
+  margin: -4px 0 0;
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
+.card-desc {
+  margin: 0;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  color: rgb(236 232 244 / 0.85);
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  overflow: hidden;
+}
+
+.card-desc.is-open {
+  display: block;
+  overflow: visible;
+}
+
+.card-more {
+  align-self: flex-start;
+  margin-top: -4px;
+  padding: 2px 0;
+  border: 0;
+  background: none;
+  color: var(--accent);
+  font: inherit;
+  font-size: 0.85rem;
+  cursor: pointer;
+}
+
+.card-more:hover { text-decoration: underline; }
+
+.card-kw {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: auto 0 0; /* pin pills to the bottom so a row of cards lines up */
+  padding: 4px 0 0;
+  list-style: none;
+}
+
+.pill {
+  padding: 3px 10px;
+  border: 1px solid rgb(180 140 255 / 0.22);
+  border-radius: 999px;
+  background: var(--chip-bg);
+  color: #dccff9;
+  font-size: 0.75rem;
+  line-height: 1.4;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
 }
 
 /* ---------- motion ---------- */
