@@ -4,6 +4,13 @@
 import { runLoop } from '../loop';
 import type { Scene } from './scene';
 
+declare global {
+  interface Window {
+    /** Device requested early by the inline script in index.html. */
+    gpuDevice?: Promise<GPUDevice | null>;
+  }
+}
+
 /**
  * Starts `scene` on `canvas`. Resolves false if WebGPU is unavailable or setup fails
  * (the canvas is left untouched unless a device was obtained).
@@ -16,14 +23,8 @@ export async function startWebGPU(
 ): Promise<boolean> {
   if (!navigator.gpu) return false;
 
-  let device: GPUDevice;
-  try {
-    const adapter = await navigator.gpu.requestAdapter({ powerPreference: 'low-power' });
-    if (!adapter) return false;
-    device = await adapter.requestDevice();
-  } catch {
-    return false;
-  }
+  const device = await (window.gpuDevice ?? requestDevice());
+  if (!device) return false;
 
   const context = canvas.getContext('webgpu');
   if (!context) {
@@ -65,4 +66,13 @@ export async function startWebGPU(
   });
 
   return true;
+}
+
+async function requestDevice(): Promise<GPUDevice | null> {
+  try {
+    const adapter = await navigator.gpu.requestAdapter({ powerPreference: 'low-power' });
+    return adapter ? await adapter.requestDevice() : null;
+  } catch {
+    return null;
+  }
 }

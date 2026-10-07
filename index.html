@@ -2,6 +2,15 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
+    <script>
+      // Requests the WebGPU device while the main script downloads; bg/webgpu/renderer.ts uses it.
+      if (navigator.gpu && !new URLSearchParams(location.search).has('bg')) {
+        window.gpuDevice = navigator.gpu
+          .requestAdapter({ powerPreference: 'low-power' })
+          .then((adapter) => (adapter ? adapter.requestDevice() : null))
+          .catch(() => null);
+      }
+    </script>
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <meta name="theme-color" content="#0a0512" />
     <meta name="color-scheme" content="dark" />

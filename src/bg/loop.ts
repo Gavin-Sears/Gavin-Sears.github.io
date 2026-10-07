@@ -36,10 +36,15 @@ export function runLoop(
   const frame: FrameInfo = { time: 0, dt: 0, width: 0, height: 0, dpr: 1, scrollY: 0 };
   let raf = 0;
   let last = 0;
+  let drawn = false;
 
   const render = () => {
     frame.scrollY = window.scrollY;
     draw(frame);
+    if (!drawn) {
+      drawn = true;
+      canvas.classList.add('is-ready');
+    }
   };
 
   const tick = (now: number) => {
