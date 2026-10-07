@@ -49,6 +49,9 @@ body {
 
 img, svg { display: block; max-width: 100%; }
 
+/* Components set their own display; the hidden attribute must still win. */
+[hidden] { display: none !important; }
+
 :focus-visible {
   outline: 2px solid var(--accent);
   outline-offset: 3px;
@@ -211,6 +214,161 @@ img, svg { display: block; max-width: 100%; }
   }
 }
 
+/* ---------- search ---------- */
+.search {
+  position: sticky;
+  top: max(10px, env(safe-area-inset-top));
+  z-index: 5;
+  margin-bottom: 14px;
+}
+
+.search-box {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  min-height: 48px;
+  padding: 6px 10px;
+  border: 1px solid rgb(180 140 255 / 0.25);
+  border-radius: 12px;
+  background: rgb(22 14 38 / 0.96);
+  box-shadow: 0 8px 24px rgb(0 0 0 / 0.35);
+  cursor: text;
+  transition: border-color 0.2s;
+}
+
+.search-box:focus-within { border-color: var(--accent); }
+
+.search-icon {
+  flex: none;
+  width: 20px;
+  height: 20px;
+  color: var(--muted);
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.chips:empty { display: none; }
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  padding: 2px 2px 2px 10px;
+  border: 1px solid rgb(180 140 255 / 0.45);
+  border-radius: 999px;
+  background: rgb(180 140 255 / 0.2);
+  font-size: 0.85rem;
+  line-height: 1.4;
+}
+
+.chip-remove {
+  display: grid;
+  place-items: center;
+  width: 26px;
+  height: 26px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: none;
+  color: inherit;
+  cursor: pointer;
+}
+
+.chip-remove:hover { background: rgb(255 255 255 / 0.12); }
+
+.chip-remove svg {
+  width: 14px;
+  height: 14px;
+}
+
+.search-input {
+  flex: 1;
+  min-width: 9ch;
+  height: 34px;
+  padding: 0 2px;
+  border: 0;
+  outline: 0;
+  background: none;
+  color: var(--text);
+  font: 16px/1 var(--font-ui); /* 16px+ stops iOS from zooming in on focus */
+}
+
+.search-input::placeholder { color: var(--muted); }
+
+/* Exactly 4 rows visible; the rest scroll. */
+.search-options {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  right: 0;
+  max-height: calc(4 * 40px + 8px + 2px); /* rows + padding + border (border-box) */
+  margin: 0;
+  padding: 4px;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  list-style: none;
+  border: 1px solid rgb(180 140 255 / 0.25);
+  border-radius: 12px;
+  background: rgb(22 14 38 / 0.98);
+  box-shadow: 0 12px 32px rgb(0 0 0 / 0.5);
+}
+
+.search-option {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  height: 40px;
+  padding: 0 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.search-option[aria-selected="true"] { background: rgb(180 140 255 / 0.18); }
+
+.search-count {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--muted);
+}
+
+.list-status {
+  margin: 0 0 10px;
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
+.list-empty {
+  padding: 48px 16px;
+  text-align: center;
+  color: var(--muted);
+}
+
+.list-empty p { margin: 0 0 12px; }
+
+.list-clear {
+  padding: 8px 16px;
+  border: 1px solid rgb(180 140 255 / 0.45);
+  border-radius: 999px;
+  background: none;
+  color: var(--accent);
+  font: inherit;
+  cursor: pointer;
+}
+
+.list-clear:hover { background: rgb(180 140 255 / 0.12); }
+
 /* ---------- list + cards ---------- */
 .list {
   display: grid;
@@ -364,8 +522,24 @@ a.thumb:focus-visible { outline-offset: -3px; }
   border-radius: 999px;
   background: var(--chip-bg);
   color: #dccff9;
+  font: inherit;
   font-size: 0.75rem;
   line-height: 1.4;
+  cursor: pointer;
+  transition: border-color 0.2s, background-color 0.2s;
+}
+
+.pill:not(:disabled):hover { border-color: rgb(180 140 255 / 0.6); }
+
+/* Search off (phones by default): pills are plain labels. */
+.pill:disabled { cursor: default; }
+.no-search .search { display: none; }
+
+/* Pills matching an active filter, so it's clear why a card is shown. */
+.pill.hit {
+  border-color: var(--accent);
+  background: rgb(180 140 255 / 0.32);
+  color: #fff;
 }
 
 .sr-only {

@@ -17,3 +17,8 @@ export function h<K extends keyof HTMLElementTagNameMap>(
   for (const child of children) if (child) el.append(child);
   return el;
 }
+
+/** Case- and whitespace-insensitive form used for all keyword matching. */
+export function normalize(text: string): string {
+  return text.trim().toLowerCase().replace(/\s+/g, ' ');
+}

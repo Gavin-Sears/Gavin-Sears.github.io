@@ -1,11 +1,11 @@
-// Entry → <article class="card">. Self-contained: owns its "Read more" toggle.
+// Entry → <article class="card">. Self-contained: owns its "Read more" toggle; keyword pills call `onKeyword`.
 
 import type { Entry, YearMonth } from '../content/types';
 import { h } from '../lib/dom';
 
 const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
-export function createCard(entry: Entry): HTMLElement {
+export function createCard(entry: Entry, onKeyword: (keyword: string) => void): HTMLElement {
   const descId = `desc-${entry.id}`;
   const desc = h('p', { class: 'card-desc', id: descId }, entry.description);
   const more = h('button', { class: 'card-more', type: 'button', 'aria-expanded': 'false', 'aria-controls': descId, hidden: true }, 'Read more');
@@ -37,9 +37,16 @@ export function createCard(entry: Entry): HTMLElement {
       entry.context && h('p', { class: 'card-context' }, entry.context),
       desc,
       more,
-      h('ul', { class: 'card-kw' }, ...entry.keywords.map((kw) => h('li', { class: 'pill' }, kw))),
+      h('ul', { class: 'card-kw', 'aria-label': 'Skills' }, ...entry.keywords.map((kw) => h('li', {}, pill(kw, onKeyword)))),
     ),
   );
+}
+
+/** Keyword pill; tapping it filters the list by that keyword. */
+function pill(keyword: string, onKeyword: (keyword: string) => void): HTMLElement {
+  const button = h('button', { type: 'button', class: 'pill', 'data-kw': keyword }, keyword);
+  button.addEventListener('click', () => onKeyword(keyword));
+  return button;
 }
 
 /** Linked 16:9 image, or a styled placeholder when the entry has no thumbnail yet. */
