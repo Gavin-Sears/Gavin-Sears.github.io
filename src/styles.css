@@ -1,0 +1,59 @@
+/* ---------- tokens ---------- */
+:root {
+  --bg: #0a0512;
+  --panel: rgb(14 9 24 / 0.86);
+  --text: #ece8f4;
+  --muted: #a49cb8;
+  --line: rgb(255 255 255 / 0.08);
+  --accent: #b48cff;
+  --chip-bg: rgb(180 140 255 / 0.12);
+  --radius: 14px;
+  --gutter: 16px;
+
+  /* Iowan ships with Apple OSes; Palatino family on Windows/Linux; "Serif Fallback" is a self-hosted OFL font for Android. */
+  --font-display: "Iowan Old Style", "Palatino Linotype", Palatino, "URW Palladio L", P052, "Serif Fallback", Georgia, serif;
+  --font-ui: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-mono: ui-monospace, "SF Mono", "Cascadia Mono", "Roboto Mono", Menlo, Consolas, monospace;
+}
+
+/* ---------- base ---------- */
+*, *::before, *::after { box-sizing: border-box; }
+
+html {
+  color-scheme: dark;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  min-height: 100svh;
+  background: var(--bg);
+  color: var(--text);
+  font: 16px/1.5 var(--font-ui);
+  -webkit-font-smoothing: antialiased;
+}
+
+img, svg { display: block; max-width: 100%; }
+
+/* ---------- background canvas ---------- */
+#bg {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100lvh;
+  z-index: -1;
+  pointer-events: none;
+}
+
+/* ---------- hero ---------- */
+.hero {
+  min-height: 100svh;
+  display: grid;
+  place-items: center;
+}
+
+/* ---------- panel ---------- */
+.panel {
+  min-height: 100svh;
+}
