@@ -79,11 +79,16 @@ img, svg { display: block; max-width: 100%; }
 
 /* ---------- hero ---------- */
 .hero {
+  /* Full screen height including the area under browser bars (lvh), so nothing below the hero peeks
+     through translucent toolbars like iOS 26 Safari's floating tab bar. The extra bottom padding
+     (lvh - svh = the bars' height) keeps the content centered in the part of the screen that's visible. */
+  --bars: calc(100lvh - 100svh);
   position: relative;
   min-height: 100svh;
+  min-height: 100lvh;
   display: grid;
   place-items: center;
-  padding: var(--gutter) var(--gutter) calc(72px + env(safe-area-inset-bottom));
+  padding: var(--gutter) var(--gutter) calc(72px + var(--bars) + env(safe-area-inset-bottom));
   text-align: center;
   /* The name's halo reaches past the screen edge on phones; clip it so the page can't scroll sideways.
      `clip` (unlike `hidden`) doesn't create a scroll container. */
@@ -160,7 +165,7 @@ img, svg { display: block; max-width: 100%; }
 .scroll-cue {
   position: absolute;
   left: 50%;
-  bottom: calc(16px + env(safe-area-inset-bottom));
+  bottom: calc(16px + var(--bars) + env(safe-area-inset-bottom)); /* should extend below safari toolbar */
   translate: -50% 0;
   display: grid;
   place-items: center;
