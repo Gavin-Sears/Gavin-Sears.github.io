@@ -6,8 +6,22 @@ import type { Scene } from './scene';
 import shader from './dotfield.wgsl?raw';
 
 export function createDotfield(): Scene {
-  // Layout mirrors `Uniforms` in dotfield.wgsl (48 bytes).
-  const data = new Float32Array(12);
+  // Layout mirrors `Uniforms` in dotfield.wgsl (96 bytes), and elements 0–5 change per frame.
+  const data = new Float32Array(24);
+  data[3] = params.noiseScale;
+  data[6] = params.threshold;
+  data[7] = params.fullAt;
+  data.set(params.bg, 8);
+  data[11] = params.bgDrift;
+  data[12] = params.hueSpeed;
+  data[13] = params.hueSpread;
+  data[14] = params.dimMin;
+  data[15] = params.dimMax;
+  data[16] = params.parallax;
+  data[17] = params.speed;
+  data[18] = params.gain;
+  data[19] = params.lacunarity;
+  data[20] = params.octaves;
   const cellCss = isCoarse ? params.cellCss.coarse : params.cellCss.fine;
   let device: GPUDevice;
   let pipeline: GPURenderPipeline;
@@ -37,13 +51,8 @@ export function createDotfield(): Scene {
       data[0] = f.time;
       data[1] = cellCss * f.dpr;
       data[2] = f.scrollY;
-      data[3] = params.threshold;
       data[4] = f.width;
       data[5] = f.height;
-      data[6] = params.noiseScale;
-      data[7] = params.speed;
-      data.set(params.bg, 8);
-      data[11] = params.bgDrift;
       device.queue.writeBuffer(buffer, 0, data);
 
       pass.setPipeline(pipeline);

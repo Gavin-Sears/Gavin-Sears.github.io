@@ -73,8 +73,8 @@ export function runLoop(
     canvas.width = frame.width = w;
     canvas.height = frame.height = h;
     frame.dpr = dpr;
-    if (raf) return; // the running loop picks up the new size
-    render(); // paused or reduced motion: draw the new size once
+    // Draw now: observers run before paint, so the resized canvas never shows a stretched frame.
+    render();
     start();
   });
   resizer.observe(canvas);
