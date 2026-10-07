@@ -1,4 +1,5 @@
-// PRIMARY (WebGPU) — device/context setup; runs a Scene on the shared frame loop.
+// PRIMARY (WebGPU) 
+// device/context setup; runs a Scene on the shared frame loop.
 
 import { runLoop } from '../loop';
 import type { Scene } from './scene';

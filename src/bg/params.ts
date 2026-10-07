@@ -1,4 +1,5 @@
-// SHARED — dot-field tuning. Both the WebGPU and WebGL2 shaders read these as uniforms,
+// SHARED 
+// dot-field tuning. Both the WebGPU and WebGL2 shaders read these as uniforms,
 // so the look is tuned here once.
 
 export const dotfield = {
@@ -25,7 +26,7 @@ export const dotfield = {
   dimMin: 0.3,
   dimMax: 0.70,
   /** Noise-field shift per CSS px scrolled, in grid cells. */
-  parallax: 0.05,
+  parallax: 0.0,
   /** Base background color, sRGB 0–1. Matches --bg in styles.css (#0a0512). */
   bg: [10 / 255, 5 / 255, 18 / 255] as const,
   /** Amplitude of the slow background color drift. */

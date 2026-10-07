@@ -1,4 +1,5 @@
-// SHARED — canvas sizing and frame loop used by every background backend.
+// SHARED 
+// canvas sizing and frame loop used by every background backend.
 
 export interface FrameInfo {
   /** Seconds of animation, wrapped hourly to keep f32 precision. */

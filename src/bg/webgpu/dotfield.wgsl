@@ -1,4 +1,5 @@
-// PRIMARY (WebGPU) — dot-field background.
+// PRIMARY (WebGPU) 
+// Dot-field background.
 // A grid of circles whose size follows animated FBM noise, colored by a sweeping RGB rainbow.
 // The WebGL2 fallback is more or less a line-for-line port of this file.
 

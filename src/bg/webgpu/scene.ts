@@ -1,4 +1,5 @@
-// PRIMARY (WebGPU) — contract for anything drawn as the page background.
+// PRIMARY (WebGPU) 
+// contract for anything drawn as the page background.
 
 import type { FrameInfo } from '../loop';
 
