@@ -13,7 +13,7 @@
 /* ---------- tokens ---------- */
 :root {
   --bg: #0a0512;
-  --panel: rgb(14 9 24 / 0.86);
+  --panel: rgb(14 9 24 / 0.8);
   --text: #ece8f4;
   --muted: #a49cb8;
   --line: rgb(255 255 255 / 0.08);
@@ -392,7 +392,8 @@ img, svg { display: block; max-width: 100%; }
   overflow: hidden;
   border: 1px solid var(--line);
   border-radius: var(--radius);
-  background: rgb(255 255 255 / 0.03);
+  /* Panel color at 30% over the 80% panel gives cards an 86% backing. */
+  background: linear-gradient(rgb(255 255 255 / 0.03), rgb(255 255 255 / 0.03)) rgb(14 9 24 / 0.3);
   transition: border-color 0.2s;
 }
 
@@ -445,10 +446,8 @@ a.thumb:focus-visible { outline-offset: -3px; }
 
 .card-head {
   display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 4px 12px;
-  flex-wrap: wrap;
+  flex-direction: column;
+  gap: 4px;
 }
 
 .card-title {
