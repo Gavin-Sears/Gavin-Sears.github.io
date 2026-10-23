@@ -2,8 +2,8 @@
 
 type MonthNum = '01' | '02' | '03' | '04' | '05' | '06' | '07' | '08' | '09' | '10' | '11' | '12';
 
-/** 'YYYY-MM', e.g. '2026-09'. */
-export type YearMonth = `${number}-${MonthNum}`;
+/** 'YYYY-MM', e.g. '2026-09', or 'YYYY-MM-DD'. Cards show only the month; the day orders entries within a month. */
+export type YearMonth = `${number}-${MonthNum}` | `${number}-${MonthNum}-${number}`;
 
 /** work = internships, research, TA, jobs; school = coursework; personal = everything else. */
 export type Kind = 'work' | 'school' | 'personal';
