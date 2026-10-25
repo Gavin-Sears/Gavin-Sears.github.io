@@ -41,7 +41,7 @@ export const entries: Entry[] = [
     context: 'Penn CIS 5650 · GPU Programming',
     date: '2026-10-17',
     description:
-      'Three real-time renderers built in WebGPU and compared on the Sponza scene with thousands of moving point lights: a naive forward renderer, Forward+, and clustered deferred shading. Includes debug views for visualizing the light clusters.',
+      'Three real-time renderers built in WebGPU and compared on the Sponza scene with thousands of moving point lights: a naive forward renderer, Forward+, and clustered deferred shading. Includes debug views for visualizing the light clusters. On Desktop, use click and drag to look around, arrow keys to move. On mobile, use one finger swipe to look around, and two finger swipe to go forward or strafe.',
     thumbnail: '/media/clustered-deferred.webp',
     thumbAlt: 'Sponza atrium lit by hundreds of colored point lights',
     link: 'https://gavinsears.dev/WebGPU-Forward-Plus-and-Clustered-Deferred/',
