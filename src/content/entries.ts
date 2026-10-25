@@ -31,8 +31,8 @@ export const entries: Entry[] = [
     thumbnail: '/media/gaussian-splat-viewer.webp',
     thumbAlt: 'Gaussian splat reconstruction of a white bicycle leaning on a bench in the grass',
     link: 'https://github.com/Gavin-Sears/WebGPU-Gaussian-Splat-Viewer',
-    keywords: ['WebGPU', 'TypeScript', 'WGSL', 'Rendering'],
-    hiddenKeywords: ['Gaussian splatting', '3D Gaussian splatting', '3DGS', 'splats', 'radiance fields', 'spherical harmonics', 'radix sort', 'sorting', 'compute shaders', 'indirect drawing', 'instancing', 'frustum culling', 'covariance', 'point cloud', 'PLY', 'GPU', 'real-time', 'web', 'tweakpane'],
+    keywords: ['WebGPU', 'TypeScript', 'WGSL'],
+    hiddenKeywords: ['rendering', 'Gaussian splatting', '3D Gaussian splatting', '3DGS', 'splats', 'radiance fields', 'spherical harmonics', 'radix sort', 'sorting', 'compute shaders', 'indirect drawing', 'instancing', 'frustum culling', 'covariance', 'point cloud', 'PLY', 'GPU', 'real-time', 'web', 'tweakpane'],
   },
   {
     id: 'clustered-deferred',
@@ -45,8 +45,8 @@ export const entries: Entry[] = [
     thumbnail: '/media/clustered-deferred.webp',
     thumbAlt: 'Sponza atrium lit by hundreds of colored point lights',
     link: 'https://gavinsears.dev/WebGPU-Forward-Plus-and-Clustered-Deferred/',
-    keywords: ['WebGPU', 'TypeScript', 'WGSL', 'Rendering'],
-    hiddenKeywords: ['Forward+', 'forward plus', 'clustered shading', 'clustered deferred', 'deferred rendering', 'deferred shading', 'G-buffer', 'light culling', 'compute shaders', 'Sponza', 'glTF', 'timestamp queries', 'performance analysis', 'profiling', 'GPU', 'real-time', 'web', 'dat.GUI'],
+    keywords: ['WebGPU', 'TypeScript', 'WGSL'],
+    hiddenKeywords: ['rendering', 'Forward+', 'forward plus', 'clustered shading', 'clustered deferred', 'deferred rendering', 'deferred shading', 'G-buffer', 'light culling', 'compute shaders', 'Sponza', 'glTF', 'timestamp queries', 'performance analysis', 'profiling', 'GPU', 'real-time', 'web', 'dat.GUI'],
   },
   {
     id: 'gaussian-fluids',
@@ -224,8 +224,8 @@ export const entries: Entry[] = [
       'A CPU rasterizer written from scratch in C++ that renders textured 3D meshes through a full pipeline: camera and perspective projection, triangle rasterization with barycentric coordinates, perspective-correct interpolation, a z-buffer, and texture mapping. Extra features include normal mapping, Blinn-Phong and toon reflection models, and an animated rainbow color mode.',
     thumbnail: '/media/software-rasterizer.webp',
     thumbAlt: 'Toon-shaded Mario rendered by the software rasterizer',
-    keywords: ['C++', 'Qt', 'Rendering'],
-    hiddenKeywords: ['rasterization', 'rasterizer', 'barycentric coordinates', 'z-buffer', 'depth buffer', 'perspective projection', 'texture mapping', 'normal mapping', 'Blinn-Phong', 'toon shading', 'graphics pipeline', 'CPU rendering'],
+    keywords: ['C++', 'Qt'],
+    hiddenKeywords: ['rendering', 'rasterization', 'rasterizer', 'barycentric coordinates', 'z-buffer', 'depth buffer', 'perspective projection', 'texture mapping', 'normal mapping', 'Blinn-Phong', 'toon shading', 'graphics pipeline', 'CPU rendering'],
   },
 
   // ---------- Earlier projects (from the old site) ----------
@@ -313,7 +313,7 @@ export const entries: Entry[] = [
     context: 'Lemon Dragon Studio · Co-founder',
     date: '2023-07',
     description:
-      'An educational ESL game that teaches conversational and writing skills through gamified drills, by Lemon Dragon Studio, which I co-founded. I created the 3D models, oversaw most of the UI design, and wrote a large share of the software, including the UI and the code for one of the three minigames. Currently unreleased; we plan to finish optimizing the UI and some scenes and publish it on itch.io.',
+      'An educational ESL game that teaches conversational and writing skills through gamified drills, by Lemon Dragon Studio, which I co-founded. I modeled and rigged the character in the screenshot in Blender, created the rest of the 3D models, oversaw most of the UI design, and wrote a large share of the software, including the UI and the code for one of the three minigames. Currently unreleased. We plan to finish optimizing the UI and some scenes and publish it on itch.io.',
     thumbnail: '/media/word-wizard.webp',
     thumbAlt: 'Mushroom wizard character model from Word Wizard',
     link: 'https://www.instagram.com/p/CzWk3BmMhsi/',
